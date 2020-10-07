@@ -1,13 +1,13 @@
-package org.example;
+package org.example.delivered;
 
 import java.util.*;
 
 /**
  * Hello world!
  */
-public class App3 {
+public class App2 {
     static class KV {
-        private Map<String, Map<Long, String>> map = new HashMap<>();
+        private final Map<String, Map<Long, String>> map = new HashMap<>();
 
         public long set(String key, String value) {
             long timestamp = System.currentTimeMillis();
@@ -31,7 +31,6 @@ public class App3 {
             } else {
                 return null;
             }
-
         }
 
         public String get(String key, Long timeStamp) {
@@ -40,14 +39,6 @@ public class App3 {
                 if (inner.containsKey(timeStamp)) {
                     return inner.get(timeStamp);
                 } else {
-                    Set<Long> keys = inner.keySet();
-                    ArrayList<Long> keyList = new ArrayList<>(keys);
-                    Collections.sort(keyList);
-                    for (int i = keyList.size() - 1; i >= 0; i--) {
-                        if (keyList.get(i) < timeStamp) {
-                            return inner.get(keyList.get(i));
-                        }
-                    }
                     return null;
                 }
             } else {
@@ -57,25 +48,24 @@ public class App3 {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        App3.KV kv = new App3.KV();
+        App2.KV kv = new App2.KV();
+
         long timeStamp1 = kv.set("greeting", "hi");
-        System.out.println(kv.get("greeting"));
+        System.out.println("Should be hi: " + kv.get("greeting"));
         Thread.sleep(1000L);
+
         long timeStamp2 = kv.set("greeting1", "yo");
-        System.out.println(kv.get("greeting1"));
+        System.out.println("Should be yo: " + kv.get("greeting1"));
         Thread.sleep(1000L);
+
         long timeStamp3 = kv.set("greeting", "hello");
-        System.out.println(kv.get("greeting"));
+        System.out.println("Should be hello " + kv.get("greeting"));
         Thread.sleep(1000L);
-        System.out.println("Should be hi " + kv.get("greeting", timeStamp1)); // hi
-        System.out.println("Should be null " + kv.get("greeting", timeStamp2)); // null
-        System.out.println("Should be hello " + kv.get("greeting", timeStamp3)); // hello
 
+        System.out.println("Should be hi " + kv.get("greeting", timeStamp1));
+        System.out.println("Should be null " + kv.get("greeting", timeStamp2));
+        System.out.println("Should be hello " + kv.get("greeting", timeStamp3));
 
-        System.out.println(kv.get("fake"));
-
-        System.out.println("Should be null " + kv.get("greeting", 0L));
-        System.out.println("Should be hi " + kv.get("greeting", timeStamp1+ 750L) );
-        System.out.println("Should be hello " + kv.get("greeting", timeStamp3+ 750L) );
+        System.out.println("Should be null: " + kv.get("fake"));
     }
 }
