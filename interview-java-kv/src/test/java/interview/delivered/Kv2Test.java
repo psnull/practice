@@ -2,6 +2,9 @@ package interview.delivered;
 
 import org.junit.jupiter.api.Test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
 class Kv2Test {
 
     @Test
@@ -9,21 +12,21 @@ class Kv2Test {
         Kv2 kv = new Kv2();
 
         long timeStamp1 = kv.set("greeting", "hi");
-        System.out.println("Should be hi: " + kv.get("greeting"));
+        assertEquals("hi", kv.get("greeting"));
         Thread.sleep(1000L);
 
         long timeStamp2 = kv.set("greeting1", "yo");
-        System.out.println("Should be yo: " + kv.get("greeting1"));
+        assertEquals("yo", kv.get("greeting1"));
         Thread.sleep(1000L);
 
         long timeStamp3 = kv.set("greeting", "hello");
-        System.out.println("Should be hello " + kv.get("greeting"));
+        assertEquals("hello", kv.get("greeting"));
         Thread.sleep(1000L);
 
-        System.out.println("Should be hi " + kv.get("greeting", timeStamp1));
-        System.out.println("Should be null " + kv.get("greeting", timeStamp2));
-        System.out.println("Should be hello " + kv.get("greeting", timeStamp3));
+        assertEquals("hi", kv.get("greeting", timeStamp1));
+        assertNull(kv.get("greeting", timeStamp2));
+        assertEquals("hello", kv.get("greeting", timeStamp3));
 
-        System.out.println("Should be null: " + kv.get("fake"));
+        assertNull(kv.get("fake"));
     }
 }
