@@ -2,7 +2,7 @@ package interview.improved;
 
 import java.util.*;
 
-public class Kv5 {
+public class InterviewKv5 {
     private final Map<String, LinkedHashMap<Long, String>> map = new HashMap<>();
 
     public long set(String key, String value) {

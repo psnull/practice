@@ -2,13 +2,14 @@ package interview.improved;
 
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 class Kv6Test {
 
     @Test
     void set() throws InterruptedException {
-        Kv6 kv = new Kv6();
+        InterviewKv6 kv = new InterviewKv6();
 
         long timeStamp1 = kv.set("greeting", "hi");
         assertEquals("hi", kv.get("greeting"));

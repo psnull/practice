@@ -10,7 +10,7 @@ class Kv1Test {
     @Test
     void set() {
 
-        Kv1 kv = new Kv1();
+        InterviewKv1 kv = new InterviewKv1();
         kv.set("greeting", "hi");
         assertEquals("hi", kv.get("greeting"));
 

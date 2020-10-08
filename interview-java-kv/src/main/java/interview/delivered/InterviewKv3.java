@@ -2,7 +2,7 @@ package interview.delivered;
 
 import java.util.*;
 
-public class Kv2 {
+public class InterviewKv3 {
 
     private final Map<String, Map<Long, String>> map = new HashMap<>();
 
@@ -28,6 +28,7 @@ public class Kv2 {
         } else {
             return null;
         }
+
     }
 
     public String get(String key, Long timeStamp) {
@@ -36,6 +37,14 @@ public class Kv2 {
             if (inner.containsKey(timeStamp)) {
                 return inner.get(timeStamp);
             } else {
+                Set<Long> keys = inner.keySet();
+                ArrayList<Long> keyList = new ArrayList<>(keys);
+                Collections.sort(keyList);
+                for (int i = keyList.size() - 1; i >= 0; i--) {
+                    if (keyList.get(i) < timeStamp) {
+                        return inner.get(keyList.get(i));
+                    }
+                }
                 return null;
             }
         } else {

@@ -3,7 +3,7 @@ package interview.delivered;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Kv1 {
+public class InterviewKv1 {
 
     private final Map<String, String> map = new HashMap<>();
 

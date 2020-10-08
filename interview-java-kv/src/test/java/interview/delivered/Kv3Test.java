@@ -9,7 +9,7 @@ class Kv3Test {
 
     @Test
     void set() throws InterruptedException {
-        Kv3 kv = new Kv3();
+        InterviewKv3 kv = new InterviewKv3();
 
         long timeStamp1 = kv.set("greeting", "hi");
         assertEquals("hi", kv.get("greeting"));
