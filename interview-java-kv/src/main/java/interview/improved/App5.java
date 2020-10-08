@@ -1,20 +1,20 @@
-package org.example.delivered;
+package interview.improved;
 
 import java.util.*;
 
 /**
  * Hello world!
  */
-public class App3 {
+public class App5 {
     static class KV {
-        private final Map<String, Map<Long, String>> map = new HashMap<>();
+        private final Map<String, LinkedHashMap<Long, String>> map = new HashMap<>();
 
         public long set(String key, String value) {
             long timestamp = System.currentTimeMillis();
             if (this.map.containsKey(key)) {
                 this.map.get(key).put(timestamp, value);
             } else {
-                Map<Long, String> newMap = new HashMap<>();
+                LinkedHashMap<Long, String> newMap = new LinkedHashMap<>();
                 newMap.put(timestamp, value);
                 this.map.put(key, newMap);
             }
@@ -22,42 +22,41 @@ public class App3 {
         }
 
         public String get(String key) {
-            if (this.map.containsKey(key)) {
-                Map<Long, String> inner = this.map.get(key);
-                Set<Long> keys = inner.keySet();
-                ArrayList<Long> keyList = new ArrayList<>(keys);
-                Collections.sort(keyList);
-                return inner.get(keyList.get(keyList.size() - 1));
-            } else {
+            if (!this.map.containsKey(key)) {
                 return null;
             }
-
+            LinkedHashMap<Long, String> inner = this.map.get(key);
+            Set<Long> keys = inner.keySet();
+            ArrayList<Long> keyList = new ArrayList<>(keys);
+            return inner.get(keyList.get(keyList.size() - 1));
         }
 
         public String get(String key, Long timeStamp) {
-            if (this.map.containsKey(key)) {
-                Map<Long, String> inner = this.map.get(key);
-                if (inner.containsKey(timeStamp)) {
-                    return inner.get(timeStamp);
-                } else {
-                    Set<Long> keys = inner.keySet();
-                    ArrayList<Long> keyList = new ArrayList<>(keys);
-                    Collections.sort(keyList);
-                    for (int i = keyList.size() - 1; i >= 0; i--) {
-                        if (keyList.get(i) < timeStamp) {
-                            return inner.get(keyList.get(i));
-                        }
-                    }
-                    return null;
-                }
-            } else {
+            if (!this.map.containsKey(key)) {
                 return null;
             }
+
+            LinkedHashMap<Long, String> inner = this.map.get(key);
+            if (inner.containsKey(timeStamp)) {
+                return inner.get(timeStamp);
+            }
+
+            Set<Long> keys = inner.keySet();
+            ArrayList<Long> keyList = new ArrayList<>(keys);
+            if (keyList.get(0) > timeStamp) {
+                return null;
+            }
+            for (int i = keyList.size() - 1; i >= 0; i--) {
+                if (keyList.get(i) < timeStamp) {
+                    return inner.get(keyList.get(i));
+                }
+            }
+            return null;
         }
     }
 
     public static void main(String[] args) throws InterruptedException {
-        App3.KV kv = new App3.KV();
+        App5.KV kv = new App5.KV();
 
         long timeStamp1 = kv.set("greeting", "hi");
         System.out.println("Should be hi: " + kv.get("greeting"));

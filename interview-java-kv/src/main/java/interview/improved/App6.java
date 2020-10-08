@@ -1,11 +1,11 @@
-package org.example.improved;
+package interview.improved;
 
 import java.util.*;
 
 /**
  * Hello world!
  */
-public class App5 {
+public class App6 {
     static class KV {
         private final Map<String, LinkedHashMap<Long, String>> map = new HashMap<>();
 
@@ -90,7 +90,7 @@ public class App5 {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        App5.KV kv = new App5.KV();
+        App6.KV kv = new App6.KV();
 
         long timeStamp1 = kv.set("greeting", "hi");
         System.out.println("Should be hi: " + kv.get("greeting"));
